@@ -7,7 +7,8 @@
 <body>
     <div class="card" ng-hide="edit" ng-click="edit=true">
         <h4>{{ card.title }}</h4>
-        <span class="deription">{{ card.description }}</span>
+        <span class="description">{{ card.description }}</span>
+        <span class="points-value">Points: {{ card.story_points}}, Value: {{ card.business_value}}</span>
     </div>
 
     <div class="card" ng-show="edit" ng-model-options="modelOptions">
