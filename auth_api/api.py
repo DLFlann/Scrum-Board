@@ -1,4 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
+from django.views.decorators.csrf import csrf_protect
+from django.utils.decorators import method_decorator
 
 from rest_framework import status, views
 from rest_framework.response import Response
@@ -7,6 +9,7 @@ from .serializers import UserSerializer
 
 class LoginView(views.APIView):
 
+    @method_decorator(csrf_protect)
     def post(self, request):
         user = authenticate(username=request.data.get("username"),
                             password=request.data.get("password"))
@@ -15,7 +18,7 @@ class LoginView(views.APIView):
             return Response({
                 "status": "Unauthorized",
                 "message": "Username or password is incorrect"
-            }, status=status.HTTP_401_UNATUTHORIZED)
+            }, status=status.HTTP_401_UNAUTHORIZED)
 
         login(request, user)
         return Response(UserSerializer(user).data)
