@@ -8,7 +8,8 @@
             templateUrl: '/static/html/scrumboard.html',
             controller: 'ScrumboardController'
         }).when('/login', {
-            templateUrl: '/static/html/login.html'
+            templateUrl: '/static/html/login.html',
+            controller: 'LoginController'
         }).otherwise('/');
     }
 

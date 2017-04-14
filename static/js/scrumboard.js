@@ -2,9 +2,9 @@
     'use strict';
 
     angular.module('scrumboard.demo', ['ngRoute']).controller
-    ('ScrumboardController', ['$scope', '$http', ScrumboardController]);
+    ('ScrumboardController', ['$scope', '$http', '$location', ScrumboardController]);
 
-    function ScrumboardController($scope, $http) {
+    function ScrumboardController($scope, $http, $location) {
         $scope.add = function(list, title) {
             var card = {
                 list: list.id,
@@ -17,17 +17,18 @@
                 alert('Could not create card');
             });
 
-        }
-
-        $scope.login = function() {
-            $http.post('/auth_api/login/',
-            {username: 'teanmeen',password: 'run1run7'});
         };
 
         $scope.data = [];
         $http.get('/scrumboard/lists/').then(function(response) {
             $scope.data = response.data;
         });
+
+        $scope.logout = function() {
+            $http.get('/scrumboard/lists/').then(function() {
+                $location.url('/login');
+            });
+        };
     }
 
 }());
